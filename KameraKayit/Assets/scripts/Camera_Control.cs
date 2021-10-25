@@ -10,7 +10,7 @@ using System.Text;
 public class Camera_Control : MonoBehaviour
 {
 
-    int currentCamindex =3;
+    int currentCamindex =3;     
     private WebCamTexture Tex;
     public RawImage display;
     //public byte[] rawByteData;
@@ -57,16 +57,18 @@ public class Camera_Control : MonoBehaviour
         display.texture = RenderTexture.GetTemporary(512,512,16);
         this.onscreenshotTaken = onscreenshotTaken;
     }*/
-     /* private void Update()
-    {       
-    }*/
+    
     public void Start()
     {
+        texture2D = new Texture2D(84, 84, TextureFormat.PVRTC_RGB4, true);
         /* renderTexture = new RenderTexture(84, 84, 24);
-         texture2D = new Texture2D(84, 84, TextureFormat.RGB24, false);
+        
          rect = new Rect(0, 0, 84, 84);
          display.texture = renderTexture;*/
-        texture2D = new Texture2D(84, 84, TextureFormat.PVRTC_RGBA4, false);
+       /*texture2D = new Texture2D(84, 84, TextureFormat.PVRTC_RGBA4, false);
+        texture2D=display.texture as Texture2D;*/
+  
+   
     }
     public void SwitchCam_Cliked()
     {
@@ -115,7 +117,7 @@ public class Camera_Control : MonoBehaviour
     public void Kayit() {        
     if (kontrol == true)
     {
-           // File.WriteAllText("byte/array/Foo.txt", String.Empty);
+           File.WriteAllText(Application.dataPath + "/Foo.txt", String.Empty);
             StreamWriter writer = new StreamWriter(Application.dataPath+"/Foo.txt", true);
              for (int i = 0; i < 8; i++)
                {
@@ -124,17 +126,21 @@ public class Camera_Control : MonoBehaviour
                      
                         data[i,j] = Tex.GetPixel(i,j);    
                        writer.Write(data[i,j]);
-                      
+                  //  texture2D.SetPixel(1280,720,Tex.GetPixel(i,j));
+                 
 
-                       }
+                }
                // rawByteData[i] = T;
                    writer.WriteLine(" ");
-               }    
-
+               }
+                    /* byte[] raw = texture2D.EncodeToJPG();
+                     Debug.Log(raw);
+                     byte[] raw2 = texture2D.EncodeToJPG();
+                    Debug.Log(raw2);*/
 
            
-            Array.Copy(texture2D.GetRawTextureData(),
-                rawByteData, rawByteData.Length);
+            /*Array.Copy(texture2D.GetRawTextureData(),
+                rawByteData, rawByteData.Length);*/
         
            
            // File.WriteAllBytes("byte/array/Foo.txt", rawByteData);
@@ -149,7 +155,8 @@ public class Camera_Control : MonoBehaviour
             */
    
     }
-   
+    
 
-    }   
+
+}   
 
